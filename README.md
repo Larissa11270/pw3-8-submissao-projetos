@@ -67,3 +67,22 @@
   * `PUT /api/projetos/{id}` — Edita dados do projeto.
   * `DELETE /api/projetos/{id}` — Exclui projeto.
   * `PATCH /api/projetos/{id}/avaliar` — Envia notas, calcula a média e define o status.
+
+* **Pseudocódigo da Regra de Negócio (Avaliação e Cálculo de Média):**
+```text
+Função avaliarProjeto(projetoId, notaInovacao, notaApresentacao):
+    projeto = repository.buscarPorId(projetoId)
+    
+    projeto.notaInovacao = notaInovacao
+    projeto.notaApresentacao = notaApresentacao
+    projeto.mediaFinal = (notaInovacao + notaApresentacao) / 2
+    
+    Se projeto.mediaFinal >= 7.0 Então
+        projeto.status = "APROVADO"
+    Senão
+        projeto.status = "REVISAR"
+    FimSe
+    
+    Retornar repository.salvar(projeto)
+FimFuncao
+```
